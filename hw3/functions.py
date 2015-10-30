@@ -70,6 +70,7 @@ def CreateColorHistorGram(image):
     HValueList = [None]*numberOfXbins
     IndexList = [None]*numberOfXbins
 
+    pixelCount = 0
     for y in range(NumberOfRows):
         for x in range(NumberOfColumns):
 
@@ -89,6 +90,7 @@ def CreateColorHistorGram(image):
 
                 key = (RBin,GBin,BBin)
 
+                pixelCount += 1
                 UpdateDictKeyValue(HValues,key,1)
 
     #Show Boundary of Region
@@ -106,7 +108,7 @@ def CreateColorHistorGram(image):
                 if (binCount == None):
                         binCount = 0
 
-                HValueList[binIndex] = binCount
+                HValueList[binIndex] = binCount/float(pixelCount)
                 IndexList[binIndex] = binIndex
 
                 ps = " Bin #: " + str(key) + " Count: " + str(binCount)
