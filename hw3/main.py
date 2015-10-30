@@ -11,11 +11,11 @@ fileName = '302001.jpg'
 
 image = OpenImageFile(fileName)
 
-CreateColorHistorGram(image,16,62,12,56)
+list1 = CreateColorHistorGram(image,16,62,12,56)
 
 # Girl
 fileName = '388070.jpg'
 
 image = OpenImageFile(fileName)
 
-CreateColorHistorGram(image,36,63,55,70)
+list2 = CreateColorHistorGram(image,36,63,55,70)

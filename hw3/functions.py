@@ -66,8 +66,8 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb):
 
     numberOfXbins = 64
 
-    HValues = {}
-    HValueList = [None]*numberOfXbins
+    BinCountDictionary = {}
+    BinCountList = [None]*numberOfXbins
     IndexList = [None]*numberOfXbins
 
     pixelCount = 0
@@ -91,7 +91,7 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb):
                 key = (RBin,GBin,BBin)
 
                 pixelCount += 1
-                UpdateDictKeyValue(HValues,key,1)
+                UpdateDictKeyValue(BinCountDictionary,key,1)
 
     #Show Boundary of Region
     io.imshow(image)
@@ -103,12 +103,12 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb):
             for z in range(4):
                 key = (x,y,z)
 
-                binCount = HValues.get(key)
+                binCount = BinCountDictionary.get(key)
 
                 if (binCount == None):
                         binCount = 0
 
-                HValueList[binIndex] = binCount/float(pixelCount)
+                BinCountList[binIndex] = binCount/float(pixelCount)
                 IndexList[binIndex] = binIndex
 
                 ps = " Bin #: " + str(key) + " Count: " + str(binCount)
@@ -124,5 +124,7 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb):
 
     ax.set_xticks(xmajor_ticks)
 
-    plt.bar(IndexList, HValueList)
+    plt.bar(IndexList, BinCountList)
     plt.show()
+
+    return BinCountList
