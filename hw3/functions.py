@@ -59,6 +59,11 @@ def CreateColorHistorGram(image):
             G = rgbValues[1]
             B = rgbValues[2]
 
+            # image[y,x] = (0,0,255)
+
+            # io.imshow(image)
+            # io.show()
+
             RBin = R//numberOfXbins
             GBin = G//numberOfXbins
             BBin = B//numberOfXbins
@@ -66,10 +71,6 @@ def CreateColorHistorGram(image):
             key = (RBin,GBin,BBin)
 
             UpdateDictKeyValue(HValues,key,1)
-
-            # redValueList.append(R)
-            # greenValueList.append(G)
-            # blueValueList.append(B)
 
 
     index = 0
@@ -86,7 +87,7 @@ def CreateColorHistorGram(image):
                 HValueList[index] = dictValue
                 IndexList[index] = index
 
-                ps = " Bin #: " + str(index) + " Count: " + str(dictValue)
+                ps = " Bin #: " + str(key) + " Count: " + str(dictValue)
                 print(ps)
 
                 index += 1
@@ -94,13 +95,9 @@ def CreateColorHistorGram(image):
     fig = plt.figure()
     ax = fig.add_subplot(1,1,1)
 
-    # major ticks every 20, minor ticks every 5
-    xmajor_ticks = np.arange(0, 63, 1)
+    xmajor_ticks = np.arange(0, numberOfXbins, 1)
 
     ax.set_xticks(xmajor_ticks)
-
-    # plt.hist(HValueList, bins=4, color='blue')
-    # plt.show()
 
     plt.bar(IndexList, HValueList)
     plt.show()
