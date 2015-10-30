@@ -38,11 +38,17 @@ def UpdateDictKeyValue(dictionary,key,value):
     else:
         dictionary[key] += value
 
-def IsWithinBoundary(y,x):
+def IsWithinBoundary(y,x,image):
     LeftRegionBoundary = 10
     RightRegionBoundary = 300
     BottomRegionBoundary = 200
     TopRegionBoundary = 100
+
+    #Draw Boundary
+    if (x == LeftRegionBoundary or x == RightRegionBoundary) and (y <= BottomRegionBoundary and y >= TopRegionBoundary):
+        image[y,x] = [255,0,0]
+    if (y == BottomRegionBoundary or y == TopRegionBoundary) and (x <= RightRegionBoundary and x >= LeftRegionBoundary):
+        image[y,x] = [255,0,0]
 
     if (x < LeftRegionBoundary or x > RightRegionBoundary):
         return False
@@ -68,10 +74,7 @@ def CreateColorHistorGram(image):
 
             rgbValues = image[y,x]
 
-            isWithinBoundary = IsWithinBoundary(y,x)
-
-            if isWithinBoundary:
-                image[y,x] = [255,0,0]
+            isWithinBoundary = IsWithinBoundary(y,x,image)
 
             R = rgbValues[0]
             G = rgbValues[1]
