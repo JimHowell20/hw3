@@ -49,6 +49,20 @@ def CreateColorHistorGram(image):
     HValueList = [None]*numberOfXbins
     IndexList = [None]*numberOfXbins
 
+    # index = 0
+    # for x in range(4):
+    #     for y in range(4):
+    #         for z in range(4):
+    #             x1= (x+1)*numberOfXbins-5
+    #             y1 =(y+1)*numberOfXbins-5
+    #             z1 =(z+1)*numberOfXbins-5
+    #
+    #             image[0,index] = (x1,y1,z1,255)
+    #             index += 1
+    #
+    # io.imshow(image)
+    # io.show()
+
     # simpe thresholding
     for y in range(NumberOfRows):
         for x in range(NumberOfColumns):
