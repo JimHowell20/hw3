@@ -46,7 +46,7 @@ def IsWithinBoundary(y,x,image):
     LeftRegionBoundary = 52
     RightRegionBoundary = 74
 
-    #Draw Boundary
+    #Mark Boundary
     if (x == LeftRegionBoundary or x == RightRegionBoundary) and (y <= BottomRegionBoundary and y >= TopRegionBoundary):
         image[y,x] = [255,0,0]
     if (y == BottomRegionBoundary or y == TopRegionBoundary) and (x <= RightRegionBoundary and x >= LeftRegionBoundary):
@@ -91,29 +91,30 @@ def CreateColorHistorGram(image):
 
                 UpdateDictKeyValue(HValues,key,1)
 
-
+    #Show Boundary of Region
     io.imshow(image)
     io.show()
 
-    index = 0
+    binIndex = 0
     for x in range(4):
         for y in range(4):
             for z in range(4):
                 key = (x,y,z)
 
-                dictValue = HValues.get(key)
+                binCount = HValues.get(key)
 
-                if (dictValue == None):
-                        dictValue = 0
+                if (binCount == None):
+                        binCount = 0
 
-                HValueList[index] = dictValue
-                IndexList[index] = index
+                HValueList[binIndex] = binCount
+                IndexList[binIndex] = binIndex
 
-                ps = " Bin #: " + str(key) + " Count: " + str(dictValue)
+                ps = " Bin #: " + str(key) + " Count: " + str(binCount)
                 print(ps)
 
-                index += 1
+                binIndex += 1
 
+    #Draw Histogram
     fig = plt.figure()
     ax = fig.add_subplot(1,1,1)
 
