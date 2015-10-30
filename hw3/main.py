@@ -6,7 +6,7 @@ import random
 
 #START of PROGRAM
 
-fileName1 = 'test.png'
+fileName1 = 'tiger.jpg'
 
 image = io.imread(fileName1)
 image = img_as_ubyte(image)
