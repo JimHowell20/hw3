@@ -9,7 +9,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def ApplyThresholdToImage(image):
+def ApplyThresholdToImage(image2):
+
+    image = rgb2gray(image2)
 
     thresholdValue = threshold_otsu(image)
 
@@ -30,6 +32,9 @@ def ApplyThresholdToImage(image):
                 #white
                 image[y,x] = 1
                 numberOfWhitePixels += 1
+
+    io.imshow(image)
+    io.show()
 
 def UpdateDictKeyValue(dictionary,key,value):
     valueCheck = dictionary.get(key)
