@@ -13,4 +13,9 @@ image = img_as_ubyte(image)
 
 datatype = image.dtype
 
-CreateColorHistorGram(image)
+# TopRegionBoundary = 32
+# BottomRegionBoundary = 65
+#
+# LeftRegionBoundary = 52
+# RightRegionBoundary = 74
+CreateColorHistorGram(image,32,65,52,74)
