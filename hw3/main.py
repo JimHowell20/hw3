@@ -1,21 +1,21 @@
 __author__ = 'jimmy'
 
 from functions import *
-from skimage import img_as_ubyte
-import random
 
 #START of PROGRAM
 
-fileName1 = '388070.jpg'
+# Tb, Bb, Lb, Rb
 
-image = io.imread(fileName1)
-image = img_as_ubyte(image)
+# Dude
+fileName = '302001.jpg'
 
-datatype = image.dtype
+image = OpenImageFile(fileName)
 
-# TopRegionBoundary = 32
-# BottomRegionBoundary = 65
-#
-# LeftRegionBoundary = 52
-# RightRegionBoundary = 74
-CreateColorHistorGram(image,32,65,52,74)
+CreateColorHistorGram(image,16,62,12,56)
+
+# Girl
+fileName = '388070.jpg'
+
+image = OpenImageFile(fileName)
+
+CreateColorHistorGram(image,36,63,55,70)

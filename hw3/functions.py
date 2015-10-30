@@ -1,5 +1,6 @@
 __author__ = 'jimmy'
 
+from skimage import img_as_ubyte
 from skimage import data, io
 from numpy.random import normal, uniform
 from skimage.filters import threshold_otsu
@@ -37,6 +38,11 @@ def UpdateDictKeyValue(dictionary,key,value):
         dictionary[key] = value
     else:
         dictionary[key] += value
+
+def OpenImageFile(fileName):
+    image = io.imread(fileName)
+    image = img_as_ubyte(image)
+    return image
 
 def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegionBoundary,RightRegionBoundary):
 
@@ -106,7 +112,7 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb):
                 IndexList[binIndex] = binIndex
 
                 ps = " Bin #: " + str(key) + " Count: " + str(binCount)
-                print(ps)
+                #print(ps)
 
                 binIndex += 1
 
