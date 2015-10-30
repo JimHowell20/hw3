@@ -39,10 +39,12 @@ def UpdateDictKeyValue(dictionary,key,value):
         dictionary[key] += value
 
 def IsWithinBoundary(y,x,image):
-    LeftRegionBoundary = 10
-    RightRegionBoundary = 300
-    BottomRegionBoundary = 200
-    TopRegionBoundary = 100
+
+    TopRegionBoundary = 32
+    BottomRegionBoundary = 65
+
+    LeftRegionBoundary = 52
+    RightRegionBoundary = 74
 
     #Draw Boundary
     if (x == LeftRegionBoundary or x == RightRegionBoundary) and (y <= BottomRegionBoundary and y >= TopRegionBoundary):
@@ -68,25 +70,27 @@ def CreateColorHistorGram(image):
     HValueList = [None]*numberOfXbins
     IndexList = [None]*numberOfXbins
 
-
     for y in range(NumberOfRows):
         for x in range(NumberOfColumns):
 
-            rgbValues = image[y,x]
-
             isWithinBoundary = IsWithinBoundary(y,x,image)
 
-            R = rgbValues[0]
-            G = rgbValues[1]
-            B = rgbValues[2]
+            if (isWithinBoundary):
 
-            RBin = R//numberOfXbins
-            GBin = G//numberOfXbins
-            BBin = B//numberOfXbins
+                rgbValues = image[y,x]
 
-            key = (RBin,GBin,BBin)
+                R = rgbValues[0]
+                G = rgbValues[1]
+                B = rgbValues[2]
 
-            UpdateDictKeyValue(HValues,key,1)
+                RBin = R//numberOfXbins
+                GBin = G//numberOfXbins
+                BBin = B//numberOfXbins
+
+                key = (RBin,GBin,BBin)
+
+                UpdateDictKeyValue(HValues,key,1)
+
 
     io.imshow(image)
     io.show()
