@@ -115,7 +115,8 @@ interval = 4
 RW = interval/2
 
 for y in range(interval,NumberOfRows,interval):
-    print(str(y))
+    percentComplete =int((y/float(NumberOfRows))*100)
+    print(str(percentComplete)+ " % ")
     for x in range(interval,NumberOfColumns,interval):
 
         list8 = CreateColorHistorGram(image,y-HSW,y+HSW,x-HSW,x+HSW, False)
