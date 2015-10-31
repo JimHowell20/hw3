@@ -35,14 +35,14 @@ def ApplyThresholdToImage(image2):
     global foregroundPixelValue
     global backgroundPixelValue
 
-    thresholdValue = 165
+    thresholdValue = 170
 
     NumberOfRows = image.shape[0]
     NumberOfColumns = image.shape[1]
 
     numberOfBlackPixels = 0
     numberOfWhitePixels = 0
-    selem = disk(3)
+    selem = disk(5)
 
     # simpe thresholding
     for y in range(NumberOfRows):

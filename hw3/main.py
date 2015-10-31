@@ -102,7 +102,7 @@ plt.show()
 print("finished running")
 
 
-fileName = 'day28apr2009.jpg'
+fileName = '302001.jpg'
 
 image = OpenImageFile(fileName)
 similarityImage = rgb2gray(image)
@@ -110,13 +110,13 @@ similarityImage = rgb2gray(image)
 NumberOfRows = image.shape[0]
 NumberOfColumns = image.shape[1]
 
-HSW = 32
-interval = 32
+HSW = 8
+interval = 4
 RW = interval/2
 
-for y in range(0,NumberOfRows,interval):
+for y in range(interval,NumberOfRows,interval):
     print(str(y))
-    for x in range(0,NumberOfColumns,interval):
+    for x in range(interval,NumberOfColumns,interval):
 
         list8 = CreateColorHistorGram(image,y-HSW,y+HSW,x-HSW,x+HSW, False)
 
