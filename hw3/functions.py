@@ -14,7 +14,7 @@ from skimage.morphology import disk
 foregroundPixelValue = 0
 backgroundPixelValue = 0
 
-drawFaceImages = False
+drawFaceImages = True
 
 def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
@@ -31,7 +31,6 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
     numberOfBlackPixels = 0
     numberOfWhitePixels = 0
     selem = disk(3)
-
 
     # simpe thresholding
     for y in range(NumberOfRows):
@@ -60,6 +59,11 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
         print("foreground color is black")
 
     image = opening(image,selem)
+    if (foregroundPixelValue == 0):
+        image = opening(image,selem)
+    else:
+        image = closing(image,selem)
+
 
     if drawFaceImages:
         io.imshow(image)
