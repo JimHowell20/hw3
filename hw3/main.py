@@ -102,7 +102,7 @@ plt.show()
 print("finished running")
 
 
-fileName = '302001.jpg'
+fileName = 'hw3test1.jpg'
 
 image = OpenImageFile(fileName)
 similarityImage = rgb2gray(image)
@@ -129,11 +129,44 @@ for y in range(interval,NumberOfRows,interval):
 
         similarityImage = ColorImageRegion(similarityImage,y-RW,y+RW,x-RW,x+RW, intensity)
 
-
-io.imshow(image)
-io.show()
 io.imshow(similarityImage)
 io.show()
 similarityImage = ApplyThresholdToImage(similarityImage)
 io.imshow(similarityImage)
+io.show()
+
+
+# label image regions
+NumberOfRows = image.shape[0]
+NumberOfColumns = image.shape[1]
+
+label_image = label(similarityImage)
+
+for region in regionprops(label_image):
+
+    # draw rectangle around segmented coins
+    minr, minc, maxr, maxc = region.bbox
+
+    Tb = minr
+    Bb = maxr
+
+    Lb = minc
+    Rb = maxc
+
+    if Tb < 0:
+        Tb = 0
+    if Bb > NumberOfRows:
+        Bb = NumberOfRows
+    if Lb < 0:
+        Lb = 0
+    if Rb > NumberOfColumns:
+        Rb = NumberOfColumns
+
+    numberOfXbins = 64
+
+    for y in range(Tb,Bb+1):
+        for x in range(Lb,Rb+1):
+            isWithinBoundary = IsWithinBoundary(y,x,image, Tb, Bb, Lb, Rb, True)
+
+io.imshow(image)
 io.show()
