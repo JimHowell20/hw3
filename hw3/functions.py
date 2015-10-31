@@ -14,7 +14,7 @@ from skimage.morphology import disk
 foregroundPixelValue = 0
 backgroundPixelValue = 0
 
-drawFaceImages = False
+drawFaceImages = True
 
 def HistogramSimilarity( list, averageList):
     distance = 0
@@ -124,7 +124,10 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
     if Rb > NumberOfColumns:
         Rb = NumberOfColumns
 
-    binaryImage = ApplyThresholdToImage(image, Tb, Bb, Lb, Rb)
+    binaryImage = image
+
+    if shouldThresholdImage:
+        binaryImage = ApplyThresholdToImage(image, Tb, Bb, Lb, Rb)
 
 
     numberOfXbins = 64
@@ -141,9 +144,10 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
 
             if isWithinBoundary:
 
-                isFacePixel = (binaryImage[y,x] == foregroundPixelValue)
+                if shouldThresholdImage:
+                    isFacePixel = (binaryImage[y,x] == foregroundPixelValue)
 
-                if isFacePixel:
+                if not shouldThresholdImage or isFacePixel:
                     rgbValues = image[y,x]
 
                     R = rgbValues[0]

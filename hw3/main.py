@@ -15,35 +15,35 @@ IndexList = [0]*numberOfXbins
 fileName = '302001.jpg'
 
 image = OpenImageFile(fileName)
-list1 = CreateColorHistorGram(image,16,62,12,56, False)
+list1 = CreateColorHistorGram(image,16,62,12,56, True)
 listOfHistograms.append(list1)
 
 # Girl
 fileName = '388070.jpg'
 
 image = OpenImageFile(fileName)
-list2 = CreateColorHistorGram(image,36,63,55,70, False)
+list2 = CreateColorHistorGram(image,36,63,55,70, True)
 listOfHistograms.append(list2)
 
 # Ross
 fileName = 'ross022500197.jpg'
 
 image = OpenImageFile(fileName)
-list3 = CreateColorHistorGram(image,80,192,80,175, False)
+list3 = CreateColorHistorGram(image,80,192,80,175, True)
 listOfHistograms.append(list3)
 
 # Person # 4
 fileName = '80-of-people-arent-using-linkedin-the-way-theyre-supposed-to.jpg'
 
 image = OpenImageFile(fileName)
-list4 = CreateColorHistorGram(image,17,299,145,360, False)
+list4 = CreateColorHistorGram(image,17,299,145,360, True)
 listOfHistograms.append(list4)
 
 # Person # 5
 fileName = '1319023.jpg'
 
 image = OpenImageFile(fileName)
-list5 = CreateColorHistorGram(image,25,560,70,408, False)
+list5 = CreateColorHistorGram(image,25,560,70,408, True)
 listOfHistograms.append(list5)
 
 
@@ -51,7 +51,7 @@ listOfHistograms.append(list5)
 fileName = '3442168664_d1f4b7cc67.jpg'
 
 image = OpenImageFile(fileName)
-list6 = CreateColorHistorGram(image,10,285,75,292, False)
+list6 = CreateColorHistorGram(image,10,285,75,292, True)
 listOfHistograms.append(list6)
 
 
@@ -59,14 +59,14 @@ listOfHistograms.append(list6)
 fileName = 'breaking_bad_people2.jpg'
 
 image = OpenImageFile(fileName)
-list7 = CreateColorHistorGram(image,95,306,275,400, False)
+list7 = CreateColorHistorGram(image,95,306,275,400, True)
 listOfHistograms.append(list7)
 
 # Person # 8
 fileName = 'mountfordpompeii2_2521445b.jpg'
 
 image = OpenImageFile(fileName)
-list8 = CreateColorHistorGram(image,110,285,137,275, False)
+list8 = CreateColorHistorGram(image,110,285,137,275, True)
 listOfHistograms.append(list8)
 
 
@@ -115,7 +115,7 @@ for y in range(NumberOfRows):
     for x in range(NumberOfColumns):
         print(str(x))
         image = OpenImageFile(fileName)
-        list8 = CreateColorHistorGram(image,y-2,y+2,x-2,x+2, True)
+        list8 = CreateColorHistorGram(image,y-2,y+2,x-2,x+2, False)
         similarityValue = HistogramSimilarity(list8,averageHistogram)
         intensity = int(255*similarityValue)
         similarityImage[y,x] = intensity
