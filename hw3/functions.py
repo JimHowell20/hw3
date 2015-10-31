@@ -103,10 +103,20 @@ def CreateColorHistorGram(fileName, Tb, Bb, Lb, Rb):
 
     image = OpenImageFile(fileName)
 
-    binaryImage = ApplyThresholdToImage(image, Tb, Bb, Lb, Rb)
-
     NumberOfRows = image.shape[0]
     NumberOfColumns = image.shape[1]
+
+    if Tb < 0:
+        Tb = 0
+    if Bb > NumberOfRows:
+        Bb = NumberOfRows
+    if Lb < 0:
+        Lb = 0
+    if Rb > NumberOfColumns:
+        Rb = NumberOfColumns
+
+    binaryImage = ApplyThresholdToImage(image, Tb, Bb, Lb, Rb)
+
 
     numberOfXbins = 64
 
