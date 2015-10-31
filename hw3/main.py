@@ -130,10 +130,12 @@ for y in range(interval,NumberOfRows,interval):
 
         similarityImage = ColorImageRegion(similarityImage,y-RW,y+RW,x-RW,x+RW, intensity)
 
+io.imshow(image)
+io.show()
 io.imshow(similarityImage)
 io.show()
 binarySimilarityImage = ApplyThresholdToImage(similarityImage.copy())
-io.imshow(similarityImage)
+io.imshow(binarySimilarityImage)
 io.show()
 
 
