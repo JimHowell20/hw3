@@ -38,8 +38,30 @@ listOfHistograms.append(list4)
 # Person # 5
 fileName = '1319023.jpg'
 
-list4 = CreateColorHistorGram(fileName,25,560,70,408)
-listOfHistograms.append(list4)
+list5 = CreateColorHistorGram(fileName,25,560,70,408)
+listOfHistograms.append(list5)
+
+
+# Person # 6
+fileName = '3442168664_d1f4b7cc67.jpg'
+
+list6 = CreateColorHistorGram(fileName,10,285,75,292)
+listOfHistograms.append(list6)
+
+
+# Person # 7
+fileName = 'breaking_bad_people2.jpg'
+
+list7 = CreateColorHistorGram(fileName,95,306,275,400)
+listOfHistograms.append(list7)
+
+# Person # 8
+fileName = 'mountfordpompeii2_2521445b.jpg'
+
+list8 = CreateColorHistorGram(fileName,110,285,137,275)
+listOfHistograms.append(list8)
+
+
 
 for list in listOfHistograms:
     listIndex = 0
