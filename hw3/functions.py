@@ -17,22 +17,15 @@ backgroundPixelValue = 0
 drawFaceImages = False
 
 def HistogramSimilarity( list, averageList):
+    distance = 0
     listIndex = 0
-    similarity = 0
-    nonZeroCount = 0
 
     for value in list:
         averageValue = averageList[listIndex]
+        distance += (value-averageValue)**2
+        listIndex +=1
 
-        if (value > 0.01):
-
-            nonZeroCount += 1
-
-            if (averageValue > 0.01):
-
-                similarity += 1
-
-    return similarity/nonZeroCount
+    return distance**0.5
 
 def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
@@ -70,11 +63,11 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
     if (numberOfWhitePixels > numberOfBlackPixels):
         foregroundPixelValue = 1
         backgroundPixelValue = 0
-        print("foreground color is white")
+        #print("foreground color is white")
     else:
         foregroundPixelValue = 0
         backgroundPixelValue = 1
-        print("foreground color is black")
+        #print("foreground color is black")
 
     image = opening(image,selem)
     if (foregroundPixelValue == 0):
@@ -117,9 +110,7 @@ def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegion
     else:
         return True
 
-def CreateColorHistorGram(fileName, Tb, Bb, Lb, Rb):
-
-    image = OpenImageFile(fileName)
+def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
 
     NumberOfRows = image.shape[0]
     NumberOfColumns = image.shape[1]
