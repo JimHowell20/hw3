@@ -11,11 +11,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from skimage.morphology import disk
 
-
+foregroundPixelValue = 0
+backgroundPixelValue = 0
 
 def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     image = rgb2gray(image2)
+
+    global foregroundPixelValue
+    global backgroundPixelValue
 
     thresholdValue = threshold_otsu(image)
 
@@ -24,7 +28,7 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     numberOfBlackPixels = 0
     numberOfWhitePixels = 0
-    selem = disk(2)
+    selem = disk(3)
 
 
     # simpe thresholding
@@ -45,14 +49,20 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     # assume foreground has more pixels in face region
     if (numberOfWhitePixels > numberOfBlackPixels):
+        foregroundPixelValue = 1
+        backgroundPixelValue = 0
         print("foreground color is white")
     else:
+        foregroundPixelValue = 0
+        backgroundPixelValue = 1
         print("foreground color is black")
 
     image = opening(image,selem)
 
     io.imshow(image)
     io.show()
+
+    return image
 
 def UpdateDictKeyValue(dictionary,key,value):
     valueCheck = dictionary.get(key)
@@ -103,22 +113,25 @@ def CreateColorHistorGram(fileName, Tb, Bb, Lb, Rb):
 
             isWithinBoundary = IsWithinBoundary(y,x,image, Tb, Bb, Lb, Rb)
 
-            if (isWithinBoundary):
+            if isWithinBoundary:
 
-                rgbValues = image[y,x]
+                isFacePixel = (binaryImage[y,x] == foregroundPixelValue)
 
-                R = rgbValues[0]
-                G = rgbValues[1]
-                B = rgbValues[2]
+                if isFacePixel:
+                    rgbValues = image[y,x]
 
-                RBin = R//numberOfXbins
-                GBin = G//numberOfXbins
-                BBin = B//numberOfXbins
+                    R = rgbValues[0]
+                    G = rgbValues[1]
+                    B = rgbValues[2]
 
-                key = (RBin,GBin,BBin)
+                    RBin = R//numberOfXbins
+                    GBin = G//numberOfXbins
+                    BBin = B//numberOfXbins
 
-                pixelCount += 1
-                UpdateDictKeyValue(BinCountDictionary,key,1)
+                    key = (RBin,GBin,BBin)
+
+                    pixelCount += 1
+                    UpdateDictKeyValue(BinCountDictionary,key,1)
 
     #Show Boundary of Region
     io.imshow(image)
