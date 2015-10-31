@@ -14,6 +14,8 @@ from skimage.morphology import disk
 foregroundPixelValue = 0
 backgroundPixelValue = 0
 
+drawFaceImages = False
+
 def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     image = rgb2gray(image2)
@@ -59,8 +61,9 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     image = opening(image,selem)
 
-    # io.imshow(image)
-    # io.show()
+    if drawFaceImages:
+        io.imshow(image)
+        io.show()
 
     return image
 
@@ -134,8 +137,9 @@ def CreateColorHistorGram(fileName, Tb, Bb, Lb, Rb):
                     UpdateDictKeyValue(BinCountDictionary,key,1)
 
     #Show Boundary of Region
-    io.imshow(image)
-    io.show()
+    if drawFaceImages:
+        io.imshow(image)
+        io.show()
 
     binIndex = 0
     for x in range(4):
