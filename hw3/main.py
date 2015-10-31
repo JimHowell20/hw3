@@ -30,6 +30,12 @@ list3 = CreateColorHistorGram(fileName,80,192,80,175)
 listOfHistograms.append(list3)
 
 
+fileName = '80-of-people-arent-using-linkedin-the-way-theyre-supposed-to.jpg'
+
+list4 = CreateColorHistorGram(fileName,17,299,145,360)
+listOfHistograms.append(list4)
+
+
 for list in listOfHistograms:
     listIndex = 0
     for value in list:
