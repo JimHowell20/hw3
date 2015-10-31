@@ -16,6 +16,24 @@ backgroundPixelValue = 0
 
 drawFaceImages = False
 
+def HistogramSimilarity( list, averageList):
+    listIndex = 0
+    similarity = 0
+    nonZeroCount = 0
+
+    for value in list:
+        averageValue = averageList[listIndex]
+
+        if (value > 0.01):
+
+            nonZeroCount += 1
+
+            if (averageValue > 0.01):
+
+                similarity += 1
+
+    return similarity/nonZeroCount
+
 def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     image = rgb2gray(image2)
