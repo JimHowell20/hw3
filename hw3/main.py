@@ -113,9 +113,9 @@ NumberOfColumns = image.shape[1]
 for y in range(NumberOfRows):
     print(str(y))
     for x in range(NumberOfColumns):
-        print(str(x))
+       # print(str(x))
         image = OpenImageFile(fileName)
-        list8 = CreateColorHistorGram(image,y-2,y+2,x-2,x+2, False)
+        list8 = CreateColorHistorGram(image,y-4,y+4,x-4,x+4, False)
         similarityValue = HistogramSimilarity(list8,averageHistogram)
         intensity = int(255*similarityValue)
         similarityImage[y,x] = intensity
