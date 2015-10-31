@@ -16,3 +16,9 @@ list1 = CreateColorHistorGram(fileName,16,62,12,56)
 fileName = '388070.jpg'
 
 list2 = CreateColorHistorGram(fileName,36,63,55,70)
+
+# Ross
+fileName = 'ross022500197.jpg'
+
+list2 = CreateColorHistorGram(fileName,80,192,80,175)
+

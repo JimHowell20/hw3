@@ -24,7 +24,7 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     numberOfBlackPixels = 0
     numberOfWhitePixels = 0
-    selem = disk(3)
+    selem = disk(2)
 
 
     # simpe thresholding
@@ -42,6 +42,12 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
                     #white
                     image[y,x] = 1
                     numberOfWhitePixels += 1
+
+    # assume foreground has more pixels in face region
+    if (numberOfWhitePixels > numberOfBlackPixels):
+        print("foreground color is white")
+    else:
+        print("foreground color is black")
 
     image = opening(image,selem)
 
