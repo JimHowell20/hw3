@@ -59,8 +59,8 @@ def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     image = opening(image,selem)
 
-    io.imshow(image)
-    io.show()
+    # io.imshow(image)
+    # io.show()
 
     return image
 
@@ -157,14 +157,14 @@ def CreateColorHistorGram(fileName, Tb, Bb, Lb, Rb):
                 binIndex += 1
 
     #Draw Histogram
-    fig = plt.figure()
-    ax = fig.add_subplot(1,1,1)
-
-    xmajor_ticks = np.arange(0, numberOfXbins, 1)
-
-    ax.set_xticks(xmajor_ticks)
-
-    plt.bar(IndexList, BinCountList)
-    plt.show()
+    # fig = plt.figure()
+    # ax = fig.add_subplot(1,1,1)
+    #
+    # xmajor_ticks = np.arange(0, numberOfXbins, 1)
+    #
+    # ax.set_xticks(xmajor_ticks)
+    #
+    # plt.bar(IndexList, BinCountList)
+    # plt.show()
 
     return BinCountList
