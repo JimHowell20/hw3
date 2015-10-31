@@ -14,7 +14,7 @@ from skimage.morphology import disk
 foregroundPixelValue = 0
 backgroundPixelValue = 0
 
-drawFaceImages = True
+drawFaceImages = False
 
 def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 

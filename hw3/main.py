@@ -11,31 +11,31 @@ listOfHistograms = []
 averageHistogram = [0]*numberOfXbins
 IndexList = [0]*numberOfXbins
 
-# # Dude
-# fileName = '302001.jpg'
-#
-# list1 = CreateColorHistorGram(fileName,16,62,12,56)
-# listOfHistograms.append(list1)
-#
-# # Girl
-# fileName = '388070.jpg'
-#
-# list2 = CreateColorHistorGram(fileName,36,63,55,70)
-# listOfHistograms.append(list2)
-#
-# # Ross
-# fileName = 'ross022500197.jpg'
-#
-# list3 = CreateColorHistorGram(fileName,80,192,80,175)
-# listOfHistograms.append(list3)
-#
-#
-# fileName = '80-of-people-arent-using-linkedin-the-way-theyre-supposed-to.jpg'
-#
-# list4 = CreateColorHistorGram(fileName,17,299,145,360)
-# listOfHistograms.append(list4)
+# Dude
+fileName = '302001.jpg'
 
+list1 = CreateColorHistorGram(fileName,16,62,12,56)
+listOfHistograms.append(list1)
 
+# Girl
+fileName = '388070.jpg'
+
+list2 = CreateColorHistorGram(fileName,36,63,55,70)
+listOfHistograms.append(list2)
+
+# Ross
+fileName = 'ross022500197.jpg'
+
+list3 = CreateColorHistorGram(fileName,80,192,80,175)
+listOfHistograms.append(list3)
+
+# Person # 4
+fileName = '80-of-people-arent-using-linkedin-the-way-theyre-supposed-to.jpg'
+
+list4 = CreateColorHistorGram(fileName,17,299,145,360)
+listOfHistograms.append(list4)
+
+# Person # 5
 fileName = '1319023.jpg'
 
 list4 = CreateColorHistorGram(fileName,25,560,70,408)
