@@ -25,9 +25,61 @@ def HistogramSimilarity( list, averageList):
         distance += (value-averageValue)**2
         listIndex +=1
 
-    return (distance**0.5)/64.0
+    return (distance**0.5)
 
-def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
+
+def ApplyThresholdToImage(image2):
+
+    image = rgb2gray(image2)
+
+    global foregroundPixelValue
+    global backgroundPixelValue
+
+    thresholdValue = threshold_otsu(image)
+
+    NumberOfRows = image.shape[0]
+    NumberOfColumns = image.shape[1]
+
+    numberOfBlackPixels = 0
+    numberOfWhitePixels = 0
+    selem = disk(3)
+
+    # simpe thresholding
+    for y in range(NumberOfRows):
+        for x in range(NumberOfColumns):
+            if image[y,x] > thresholdValue:
+                #black
+                image[y,x] = 0
+                numberOfBlackPixels += 1
+            else:
+                #white
+                image[y,x] = 1
+                numberOfWhitePixels += 1
+
+    # assume foreground has more pixels in face region
+    if (numberOfWhitePixels > numberOfBlackPixels):
+        foregroundPixelValue = 1
+        backgroundPixelValue = 0
+        #print("foreground color is white")
+    else:
+        foregroundPixelValue = 0
+        backgroundPixelValue = 1
+        #print("foreground color is black")
+
+    image = opening(image,selem)
+    if (foregroundPixelValue == 0):
+        image = opening(image,selem)
+    else:
+        image = closing(image,selem)
+
+
+    if drawFaceImages:
+        io.imshow(image)
+        io.show()
+
+    return image
+
+def ApplyThresholdToImageRegion(image2, Tb, Bb, Lb, Rb):
 
     image = rgb2gray(image2)
 
@@ -110,6 +162,27 @@ def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegion
     else:
         return True
 
+def ColorImageRegion(image, Tb, Bb, Lb, Rb, intensity):
+
+    NumberOfRows = image.shape[0]
+    NumberOfColumns = image.shape[1]
+
+    if Tb < 0:
+        Tb = 0
+    if Bb > NumberOfRows:
+        Bb = NumberOfRows
+    if Lb < 0:
+        Lb = 0
+    if Rb > NumberOfColumns:
+        Rb = NumberOfColumns
+
+    for y in range(Tb,Bb):
+        for x in range(Lb,Rb):
+            image[y,x] = intensity
+
+    return image
+
+
 def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
 
     NumberOfRows = image.shape[0]
@@ -127,7 +200,7 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
     binaryImage = image
 
     if shouldThresholdImage:
-        binaryImage = ApplyThresholdToImage(image, Tb, Bb, Lb, Rb)
+        binaryImage = ApplyThresholdToImageRegion(image, Tb, Bb, Lb, Rb)
 
 
     numberOfXbins = 64

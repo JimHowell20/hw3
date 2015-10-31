@@ -102,7 +102,7 @@ plt.show()
 print("finished running")
 
 
-fileName = 'Time-Lapse-Face.jpg'
+fileName = 'mountfordpompeii2_2521445b.jpg'
 
 image = OpenImageFile(fileName)
 similarityImage = rgb2gray(image)
@@ -110,15 +110,19 @@ similarityImage = rgb2gray(image)
 NumberOfRows = image.shape[0]
 NumberOfColumns = image.shape[1]
 
-for y in range(NumberOfRows):
+for y in range(0,NumberOfRows,8):
     print(str(y))
-    for x in range(NumberOfColumns):
+    for x in range(0,NumberOfColumns,8):
        # print(str(x))
         image = OpenImageFile(fileName)
         list8 = CreateColorHistorGram(image,y-4,y+4,x-4,x+4, False)
-        similarityValue = HistogramSimilarity(list8,averageHistogram)
-        intensity = int(255*similarityValue)
-        similarityImage[y,x] = intensity
 
+        similarityValue = HistogramSimilarity(list8,averageHistogram)
+
+        intensity = int(255*similarityValue)
+
+        image = ColorImageRegion(similarityImage,y-4,y+4,x-4,x+4, intensity)
+
+#similarityImage = ApplyThresholdToImage(similarityImage)
 io.imshow(similarityImage)
 io.show()
