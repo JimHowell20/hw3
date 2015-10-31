@@ -102,7 +102,7 @@ plt.show()
 print("finished running")
 
 
-fileName = 'mountfordpompeii2_2521445b.jpg'
+fileName = 'day28apr2009.jpg'
 
 image = OpenImageFile(fileName)
 similarityImage = rgb2gray(image)
@@ -110,19 +110,30 @@ similarityImage = rgb2gray(image)
 NumberOfRows = image.shape[0]
 NumberOfColumns = image.shape[1]
 
-for y in range(0,NumberOfRows,8):
-    print(str(y))
-    for x in range(0,NumberOfColumns,8):
-       # print(str(x))
-        image = OpenImageFile(fileName)
-        list8 = CreateColorHistorGram(image,y-4,y+4,x-4,x+4, False)
+HSW = 32
+interval = 32
+RW = interval/2
 
-        similarityValue = HistogramSimilarity(list8,averageHistogram)
+for y in range(0,NumberOfRows,interval):
+    print(str(y))
+    for x in range(0,NumberOfColumns,interval):
+
+        list8 = CreateColorHistorGram(image,y-HSW,y+HSW,x-HSW,x+HSW, False)
+
+        similarityValue = 1 - HistogramSimilarity(list8,averageHistogram)
 
         intensity = int(255*similarityValue)
 
-        image = ColorImageRegion(similarityImage,y-4,y+4,x-4,x+4, intensity)
+        if (intensity > 255):
+            print("WARNING " + str(intensity))
 
-#similarityImage = ApplyThresholdToImage(similarityImage)
+        similarityImage = ColorImageRegion(similarityImage,y-RW,y+RW,x-RW,x+RW, intensity)
+
+
+io.imshow(image)
+io.show()
+io.imshow(similarityImage)
+io.show()
+similarityImage = ApplyThresholdToImage(similarityImage)
 io.imshow(similarityImage)
 io.show()

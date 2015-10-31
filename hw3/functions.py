@@ -35,7 +35,7 @@ def ApplyThresholdToImage(image2):
     global foregroundPixelValue
     global backgroundPixelValue
 
-    thresholdValue = threshold_otsu(image)
+    thresholdValue = 165
 
     NumberOfRows = image.shape[0]
     NumberOfColumns = image.shape[1]
@@ -79,7 +79,7 @@ def ApplyThresholdToImage(image2):
 
     return image
 
-def ApplyThresholdToImageRegion(image2, Tb, Bb, Lb, Rb):
+def ApplyThresholdToImageRegion(image2, Tb, Bb, Lb, Rb,shouldThresholdImage):
 
     image = rgb2gray(image2)
 
@@ -99,7 +99,7 @@ def ApplyThresholdToImageRegion(image2, Tb, Bb, Lb, Rb):
     for y in range(NumberOfRows):
         for x in range(NumberOfColumns):
 
-            isWithinBoundary = IsWithinBoundary(y,x,image2, Tb, Bb, Lb, Rb)
+            isWithinBoundary = IsWithinBoundary(y,x,image2, Tb, Bb, Lb, Rb,shouldThresholdImage)
 
             if (isWithinBoundary):
                 if image[y,x] > thresholdValue:
@@ -147,13 +147,14 @@ def OpenImageFile(fileName):
     image = img_as_ubyte(image)
     return image
 
-def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegionBoundary,RightRegionBoundary):
+def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegionBoundary,RightRegionBoundary,shouldThresholdImage):
 
-    #Mark Boundary
-    if (x == LeftRegionBoundary or x == RightRegionBoundary) and (y <= BottomRegionBoundary and y >= TopRegionBoundary):
-        image[y,x] = [255,0,0]
-    if (y == BottomRegionBoundary or y == TopRegionBoundary) and (x <= RightRegionBoundary and x >= LeftRegionBoundary):
-        image[y,x] = [255,0,0]
+    if (shouldThresholdImage):
+        #Mark Boundary
+        if (x == LeftRegionBoundary or x == RightRegionBoundary) and (y <= BottomRegionBoundary and y >= TopRegionBoundary):
+            image[y,x] = [255,0,0]
+        if (y == BottomRegionBoundary or y == TopRegionBoundary) and (x <= RightRegionBoundary and x >= LeftRegionBoundary):
+            image[y,x] = [255,0,0]
 
     if (x < LeftRegionBoundary or x > RightRegionBoundary):
         return False
@@ -200,7 +201,7 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
     binaryImage = image
 
     if shouldThresholdImage:
-        binaryImage = ApplyThresholdToImageRegion(image, Tb, Bb, Lb, Rb)
+        binaryImage = ApplyThresholdToImageRegion(image, Tb, Bb, Lb, Rb,shouldThresholdImage)
 
 
     numberOfXbins = 64
@@ -213,7 +214,7 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
     for y in range(Tb,Bb):
         for x in range(Lb,Rb):
 
-            isWithinBoundary = IsWithinBoundary(y,x,image, Tb, Bb, Lb, Rb)
+            isWithinBoundary = IsWithinBoundary(y,x,image, Tb, Bb, Lb, Rb, shouldThresholdImage)
 
             if isWithinBoundary:
 
@@ -227,7 +228,7 @@ def CreateColorHistorGram(image, Tb, Bb, Lb, Rb, shouldThresholdImage):
                     G = rgbValues[1]
                     B = rgbValues[2]
 
-                    image[y,x] = (0,255,0)
+                    #image[y,x] = (0,255,0)
 
                     RBin = R//numberOfXbins
                     GBin = G//numberOfXbins
