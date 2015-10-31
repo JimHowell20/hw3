@@ -176,6 +176,21 @@ def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegion
     else:
         return True
 
+def drawBoundaryWithColor(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegionBoundary,RightRegionBoundary,color):
+
+    #Mark Boundary
+    if (x == LeftRegionBoundary or x == RightRegionBoundary) and (y <= BottomRegionBoundary and y >= TopRegionBoundary):
+        image[y,x] = color
+    if (y == BottomRegionBoundary or y == TopRegionBoundary) and (x <= RightRegionBoundary and x >= LeftRegionBoundary):
+        image[y,x] = color
+
+    if (x < LeftRegionBoundary or x > RightRegionBoundary):
+        return False
+    elif (y > BottomRegionBoundary or y < TopRegionBoundary):
+        return False
+    else:
+        return True
+
 def ColorImageRegion(image, Tb, Bb, Lb, Rb, intensity):
 
     NumberOfRows = image.shape[0]

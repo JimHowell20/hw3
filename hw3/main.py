@@ -132,7 +132,7 @@ for y in range(interval,NumberOfRows,interval):
 
 io.imshow(similarityImage)
 io.show()
-similarityImage = ApplyThresholdToImage(similarityImage)
+binarySimilarityImage = ApplyThresholdToImage(similarityImage.copy())
 io.imshow(similarityImage)
 io.show()
 
@@ -141,7 +141,7 @@ io.show()
 NumberOfRows = image.shape[0]
 NumberOfColumns = image.shape[1]
 
-label_image = label(similarityImage)
+label_image = label(binarySimilarityImage)
 
 for region in regionprops(label_image):
 
@@ -165,9 +165,26 @@ for region in regionprops(label_image):
 
     numberOfXbins = 64
 
-    for y in range(Tb,Bb+1):
-        for x in range(Lb,Rb+1):
-            isWithinBoundary = IsWithinBoundary(y,x,image, Tb, Bb, Lb, Rb, True)
+    for y in range(Tb,Bb):
+        for x in range(Lb,Rb):
+
+            midY = (Tb+Bb)/2.0
+            midX = (Lb+Rb)/2.0
+            blobIntensity = similarityImage[midY,midX]
+
+            difference = blobIntensity - 170
+
+            print(difference)
+
+            color = (255,0,0)
+            if difference > 0 and difference < 5:
+                color = (255,0,0)
+            if difference > 5 and difference < 30:
+                color = (0,255,0)
+            if difference > 30:
+                color = (0,0,255)
+
+            isWithinBoundary = drawBoundaryWithColor(y,x,image, Tb, Bb-1, Lb, Rb-1, color)
 
 io.imshow(image)
 io.show()
