@@ -1,15 +1,19 @@
 __author__ = 'jimmy'
 
 from skimage import img_as_ubyte
+from skimage.morphology import closing
+from skimage.morphology import opening
 from skimage import data, io
 from numpy.random import normal, uniform
 from skimage.filters import threshold_otsu
 from skimage.color import rgb2gray
 import numpy as np
 import matplotlib.pyplot as plt
+from skimage.morphology import disk
 
 
-def ApplyThresholdToImage(image2):
+
+def ApplyThresholdToImage(image2, Tb, Bb, Lb, Rb):
 
     image = rgb2gray(image2)
 
@@ -20,18 +24,26 @@ def ApplyThresholdToImage(image2):
 
     numberOfBlackPixels = 0
     numberOfWhitePixels = 0
+    selem = disk(3)
+
 
     # simpe thresholding
     for y in range(NumberOfRows):
         for x in range(NumberOfColumns):
-            if image[y,x] > thresholdValue:
-                #black
-                image[y,x] = 0
-                numberOfBlackPixels += 1
-            else:
-                #white
-                image[y,x] = 1
-                numberOfWhitePixels += 1
+
+            isWithinBoundary = IsWithinBoundary(y,x,image2, Tb, Bb, Lb, Rb)
+
+            if (isWithinBoundary):
+                if image[y,x] > thresholdValue:
+                    #black
+                    image[y,x] = 0
+                    numberOfBlackPixels += 1
+                else:
+                    #white
+                    image[y,x] = 1
+                    numberOfWhitePixels += 1
+
+    image = opening(image,selem)
 
     io.imshow(image)
     io.show()
@@ -67,6 +79,8 @@ def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegion
 def CreateColorHistorGram(fileName, Tb, Bb, Lb, Rb):
 
     image = OpenImageFile(fileName)
+
+    binaryImage = ApplyThresholdToImage(image, Tb, Bb, Lb, Rb)
 
     NumberOfRows = image.shape[0]
     NumberOfColumns = image.shape[1]
