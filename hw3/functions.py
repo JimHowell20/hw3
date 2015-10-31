@@ -64,7 +64,9 @@ def IsWithinBoundary(y,x,image,TopRegionBoundary,BottomRegionBoundary,LeftRegion
     else:
         return True
 
-def CreateColorHistorGram(image, Tb, Bb, Lb, Rb):
+def CreateColorHistorGram(fileName, Tb, Bb, Lb, Rb):
+
+    image = OpenImageFile(fileName)
 
     NumberOfRows = image.shape[0]
     NumberOfColumns = image.shape[1]
